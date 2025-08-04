@@ -1,3 +1,4 @@
+# Default config for sway
 #
 # Copy this to ~/.config/sway/config and edit it to your liking.
 #
@@ -14,7 +15,8 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 set $term foot
-for_window [app_id="foot"] border pixel
+# Replace the border with a 1 pixel
+for_window [tiling] border pixel 1
 # Your preferred application launcher
 set $menu wmenu-run
 
