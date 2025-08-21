@@ -16,11 +16,11 @@ set $right l
 # Your preferred terminal emulator
 set $term foot
 # Replace the border with a 1 pixel
-for_window [tiling] border pixel 3
+for_window [tiling] border pixel 2
 for_window [floating] border pixel 1
 # Your preferred application launcher
-set $menu wmenu-run
-
+#set $menu wmenu-run
+set $menu rofi -show run 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -32,13 +32,18 @@ output * bg #ffffff solid_color
 # Example configuration:
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 # Sreen at 40Hz
-output eDP-1 {
-    mode 1366x768@40Hz
-}
+
+#reduce logical pixels and reduce gpu workload
+#output eDP-1 scale 1.25
+
 
 #night light
-exec gammastep -O 2500K
+exec gammastep -O 3500K
 # You can get the names of your outputs by running: swaymsg -t get_outputs
+
+#Conservation Mode
+#Need a script for this
+#echo 0 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
 
 ### Idle configuration
 #
@@ -53,8 +58,7 @@ exec gammastep -O 2500K
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
-set $animation none
-
+#testing if updates and backup can happen
 
 #notifcation
 exec swaync
@@ -91,7 +95,8 @@ exec swaync
     bindsym $mod+alt+g exec brave https://gemini.google.com/app
     #Open youtube
     bindsym $mod+alt+y exec brave https://www.youtube.com
-
+    #Open Whatsapp Web
+    bindsym $mod+alt+w exec brave https://web.whatsapp.com
     # Kill focused window
     bindsym $mod+q kill
 
@@ -245,6 +250,7 @@ exec waybar
 
 # PowerManagement
 # Idk if it works
-exec sudo powertop --auto-tune && sudo tlp bat 
+#exec sudo powertop --auto-tune && sudo tlp bat 
+# Need a service for this
 
 include /etc/sway/config.d/*
