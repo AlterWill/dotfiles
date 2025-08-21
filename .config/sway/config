@@ -21,6 +21,14 @@ for_window [floating] border pixel 1
 # Your preferred application launcher
 #set $menu wmenu-run
 set $menu rofi -show run 
+
+#Script for switching the splid h and v
+
+# Run the auto-split script for every new window
+#for_window [window_role=".*"] exec_always ~/.config/sway/scripts/auto_split_all.sh
+#the above code is bad
+exec_always autotiling
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
