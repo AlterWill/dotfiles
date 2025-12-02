@@ -1,0 +1,97 @@
+@import "mocha.css";
+
+* {
+  font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  padding: 0;
+  padding-left: 1px;
+  margin: 0;
+}
+
+window#waybar {
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 13px;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  /* Use box-shadow instead of border so the text isn't offset */
+  /* Avoid rounded borders under each button name */
+  border: none;
+  border-radius: 0;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+button:hover {
+  background-color: white;
+}
+
+#workspaces button {
+  color: #ffffff;
+}
+
+#workspaces button:hover {
+  color: blue;
+}
+
+#workspaces button.focused {
+  background-color: cyan;
+}
+
+#workspaces button.urgent {
+  background-color: #eb4d4b;
+}
+
+#mode {
+  background-color: #64727d;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#temperature,
+#network,
+#pulseaudio {
+  color: @text;
+}
+
+#pulseaudio {
+  font-size: 12px;
+}
+
+#backlight {
+  color: lightyellow;
+}
+
+
+#battery.charging,
+#battery.plugged {
+  color: @sapphire;
+}
+
+@keyframes blink {
+  to {
+    color: #000000;
+  }
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+  background-color: #f53c3c;
+  color: #ffffff;
+  /* animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;*/
+}
+
+label:focus {
+  background-color: #000000;
+}
+
+#pulseaudio.muted {
+  color: @text;
+}

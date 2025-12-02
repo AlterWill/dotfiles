@@ -1,0 +1,9 @@
+pkgname=dummy-firefox
+pkgver=1.0
+pkgrel=1
+pkgdesc="Blocks Firefox from being installed"
+conflicts=('firefox' 'firefox-bin' 'firefox-esr')
+provides=('firefox')
+arch=('any')
+package() { :; }
+

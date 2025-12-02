@@ -1,0 +1,7 @@
+[Unit]
+Description=Battery Notification Service
+
+[Service]
+Type=oneshot
+ExecStart=/home/alterwill/.local/bin/battery-notify.sh
+

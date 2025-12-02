@@ -1,0 +1,12 @@
+[Unit]
+Description=IdeaPad Auto Conservation Mode
+
+[Service]
+Type=simple
+ExecStart=/home/alterwill/auto_conserve.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
+

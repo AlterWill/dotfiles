@@ -12,8 +12,8 @@ alias powersave='sudo powertop --auto-tune && sudo tlp bat && sudo auto-cpufreq 
 alias Update='update && yay -Sc --noconfirm && exit'
 alias Install="yay -S --noconfirm"
 alias Delete="yay -Rns --noconfirm"
-alias vi='NVIM_APPNAME=nvim nvim'
-alias nvim='NVIM_APPNAME=nvim-minimal nvim'
+alias vi='nvim'
+alias nvim='NVIM_APPNAME=nvim nvim'
 PS1='[\u@\h \W]\$ '
 
 export _JAVA_AWT_WM_NONREPARENTING=1
