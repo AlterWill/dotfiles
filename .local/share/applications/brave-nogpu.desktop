@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=(No GPU) Brave
+Exec=brave --disable-gpu
+Icon=brave
+Type=Application
+Categories=Network;WebBrowser;
+

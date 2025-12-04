@@ -24,3 +24,5 @@ vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = "#000000" })
 vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { bg = "#000000" })
 vim.o.showcmd  = false
 
+vim.g.tmux_navigator_no_mappings = 1
+

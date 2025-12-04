@@ -15,27 +15,26 @@
 )
 
 ;; tap/hold timing (ms) — tweak if tap/hold feels off
-(defvar tt 305)
-(defvar ht 305)
+(defvar tt 255)
+(defvar ht 255)
 
 ;; aliases: use while-held semantics (safer)
-(defalias capslk (tap-hold $tt $ht esc (layer-while-held layer1)))
-(defalias spcfn (tap-hold $tt $ht spc (layer-while-held layer2)))
+(defalias 
+  capslk (tap-hold $tt $ht esc (layer-while-held layer1))
+  spcfn (tap-hold $tt $ht spc (layer-while-held layer2))
 
-;; Home row keys
-(defalias A_H (tap-hold $tt $ht a lmet)) 
-(defalias S_H (tap-hold $tt $ht s lalt))  
-(defalias D_H (tap-hold $tt $ht d lshift))
-(defalias F_H (tap-hold $tt $ht f lctl))
+  ;; Home row keys
+  A_H (tap-hold $tt $ht a lalt) 
+  S_H (tap-hold $tt $ht s lmet)  
+  D_H (tap-hold $tt $ht d lshift)
+  F_H (tap-hold $tt $ht f lctl)
 
-(defalias J_H (tap-hold $tt $ht j lctl))
-(defalias K_H (tap-hold $tt $ht k lshift))  
-(defalias L_H (tap-hold $tt $ht l lalt))  
-(defalias SCL_H (tap-hold $tt $ht ; lmet))
+  J_H (tap-hold $tt $ht j lctl)
+  K_H (tap-hold $tt $ht k lshift)  
+  L_H (tap-hold $tt $ht l lmet)  
+  SCL_H (tap-hold $tt $ht ; lalt)
+)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; BASE LAYER (QWERTY) - normal typing, all the keys are same
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (deflayer base
   esc     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
   grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
@@ -45,12 +44,6 @@
   lctl lmet lalt @spcfn ralt rmet rctl 
 )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; LAYER1 — Caps hold (primary FN, while held)
-;; Ergonomics:
-;;  a = Backspace, s = Tab, d = Shift (hold), f = Enter
-;; Navigation: h/j/k/l -> left/down/up/right
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (deflayer layer1
   esc  f1   f2   f3   f4   f5   f6     f7   f8   f9   f10  f11  f12  prtsc Insert Delete
   grv       1    2    3    4    5      6    7    8    9    0    -    =    bspc
@@ -60,10 +53,6 @@
   lctl lmet lalt           @spcfn        ralt rmet rctl
 )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; LAYER2 — RightAlt hold (secondary) — currently mirrors base
-;; (keeps things simple and stable; we can add symbols later)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (deflayer layer2
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
   grv     1    2    3    4    5    6    7    8    9     0    -    =    bspc
@@ -74,3 +63,68 @@
 )
 
 
+
+
+
+;; under maintenance
+
+;; aliases: use while-held semantics (safer)
+;;(defalias capslk (tap-hold $tt $ht esc  (layer-while-held layer2)))
+;;(defalias 
+;;    spcfn  (tap-hold $tt $ht spc  (layer-while-held navigation))
+;;    raltfn (tap-hold $tt $ht bspc (layer-while-held symbol))
+;;    laltfn (tap-hold $tt $ht ret  (layer-while-held number))
+;;
+;;    ;; Home row keys
+;;    A_H (tap-hold $tt $ht a lalt)
+;;    S_H (tap-hold $tt $ht s lmet)  
+;;    D_H (tap-hold $tt $ht d lshift)
+;;    F_H (tap-hold $tt $ht f lctl)
+;;
+;;    J_H (tap-hold $tt $ht j lctl)
+;;    K_H (tap-hold $tt $ht k lshift)  
+;;    L_H (tap-hold $tt $ht l lmet)  
+;;    SCL_H (tap-hold $tt $ht ; lalt)
+;;)
+;;
+;;(deflayer base
+;;  esc     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
+;;  grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
+;;  tab     q    w    e    r    t    y    u    i    o    p    [    ]    \
+;;  esc     @A_H @S_H @D_H @F_H g    h    @J_H @K_H @L_H  @SCL_H  ret   '
+;;  z       x    c    v    b    lsft n    m    ,    .    /    rsft
+;;  lctl lmet lalt @spcfn @raltfn rmet rctl 
+;;)
+;;
+;;(defalias
+;;  se (macro :w)
+;;  seQ (macro :wq)
+;;  yank     (macro : y + ret)
+;;  yankF     (macro : % y + ret)
+;;)
+;;
+;;(deflayer navigation 
+;;  esc  f1   f2   f3   f4   f5   f6     f7     f8   f9   f10  f11  f12  prtsc Insert Delete
+;;  grv    1    2        3     4      5    6      7      8    9    0    -    =    bspc
+;;  tab    1    C-PGDOWN up    C-PGUP a    @yank  C-bspc @seQ @se  3    end  [    ]    \
+;;  esc    home left     down  right  a    @yankF lctl   lsft                ret   '
+;;  lsft   z    PGDOWN   3     PGUP   a    .      tab    ?    ,    ~    home  rsft
+;;  lctl lmet lalt           @spcfn      @raltfn rmet rctl
+;;)
+;;
+;;(deflayer symbol
+;;  grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
+;;  tab     S-6  S-,  S-.  S-4  S-5  S-2  S-7  S-8  '    `    [    ]    \
+;;  esc     S-[  S-9  S-0  S-]  =    \    +    -    /    S-'  ret   '
+;;  lsft    S-`  [    ]    S--  S-3  S-\  S-1  ;    S-;  S-/  rsft
+;;  lctl lmet @laltfn @spcfn @raltfn rmet rctl 
+;;)
+;;
+;;(deflayer number
+;;  esc     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
+;;  grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
+;;  tab     S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  S-9  S-0  [    ]    \
+;;  esc     1    2    3    4    5    6    7    8    9    0  ret   '
+;;  z       x    c    v    b    lsft n    -    ;    .    /    rsft
+;;  lctl lmet lalt @spcfn @raltfn rmet rctl 
+;;)

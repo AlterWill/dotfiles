@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=(OpenGL) Brave
+Exec=brave --ozone-platform=wayland
+Icon=brave
+Type=Application
+Categories=Network;WebBrowser;
+
