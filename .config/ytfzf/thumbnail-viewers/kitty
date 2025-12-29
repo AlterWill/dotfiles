@@ -1,0 +1,10 @@
+#!/bin/sh
+
+for img in "$@"; do
+    kitty +kitten icat \
+        --silent \
+        --transfer-mode=file \
+        --align center \
+        "$img"
+done
+

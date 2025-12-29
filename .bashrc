@@ -8,14 +8,44 @@ export PATH="$HOME/.local/bin:$PATH"
 
 alias performance='sudo powertop --auto-tune ;sudo tlp start ;sudo auto-cpufreq --force reset ;exit'
 alias powersave='sudo powertop --auto-tune ; sudo tlp bat ; sudo auto-cpufreq --force powersave ; exit'
-alias update='sudo timeshift --create && yay -Syu --noconfirm'
+alias update='yay -Syu --noconfirm'
 alias Update='update && yay -Sc --noconfirm && exit'
 alias Install="yay -S --noconfirm"
 alias Delete="yay -Rns --noconfirm"
 alias vi='nvim'
 alias nvim='NVIM_APPNAME=nvim nvim'
 PS1='[\u@\h \W]\$ '
+alias eza='eza --icons=always -G'
+alias yt='scrapetubefzf -d'
+alias ls='eza'
+alias cleandisk='
+sudo paccache -rk2;
+echo "--- Pacman cache ---";
 
+echo "--- Yay cache ---";
+rm -rf ~/.cache/yay;
+
+echo "--- Orphan packages ---";
+orphans=$(pacman -Qtdq);
+if [ -n "$orphans" ]; then
+  sudo pacman -Rns --noconfirm $orphans;
+else
+  echo "No orphan packages found.";
+fi;
+
+echo "--- Journal logs (100M) ---";
+sudo journalctl --vacuum-size=100M;
+
+echo "--- User cache ---";
+
+echo "--- npm cache ---";
+npm cache clean --force 2>/dev/null || true;
+
+echo "--- Done ---";
+df -h /
+'
+
+export YAY_CLEAN_AFTER=1
 export _JAVA_AWT_WM_NONREPARENTING=1
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
@@ -31,3 +61,20 @@ if [ "$XDG_SESSION_TYPE" = "x11" ]; then
   export DISPLAY=:0
 fi
 
+# pnpm
+export PNPM_HOME="/home/alterwill/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# fnm
+FNM_PATH="/home/alterwill/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+
+
+eval "$(fnm env --use-on-cd --shell bash)"
