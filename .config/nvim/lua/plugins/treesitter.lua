@@ -16,7 +16,9 @@ return {
         "tsx",
         "html",
         "css",
-        "json"
+        "json",
+        "markdown",
+        "markdown_inline",
       },
       highlight = {
         enable = true,

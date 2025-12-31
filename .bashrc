@@ -2,6 +2,7 @@
 # ~/.bashrc
 #
 export PATH="$HOME/.local/bin:$PATH"
+export EDITOR=nvim
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -13,7 +14,6 @@ alias Update='update && yay -Sc --noconfirm && exit'
 alias Install="yay -S --noconfirm"
 alias Delete="yay -Rns --noconfirm"
 alias vi='nvim'
-alias nvim='NVIM_APPNAME=nvim nvim'
 PS1='[\u@\h \W]\$ '
 alias eza='eza --icons=always -G'
 alias yt='scrapetubefzf -d'
