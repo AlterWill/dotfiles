@@ -3,6 +3,7 @@
 #
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR=nvim
+export NODE_OPTIONS="--max-old-space-size=2048"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -78,3 +79,6 @@ fi
 
 
 eval "$(fnm env --use-on-cd --shell bash)"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
