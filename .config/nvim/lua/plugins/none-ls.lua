@@ -13,7 +13,7 @@ return {
         -- isort => formatting imports
 			},
 		})
-		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, { desc = "Format File" })
 	end,
 }
 

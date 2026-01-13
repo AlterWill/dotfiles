@@ -8,7 +8,7 @@ return{
   },
   lazy = false, 
   config=function()
-      vim.keymap.set('n', '<leader>e' , ':Neotree toggle<CR>',{})
+      vim.keymap.set('n', '<leader>e' , ':Neotree toggle<CR>',{ desc = "Explorer (NeoTree)" })
   end
 }
 

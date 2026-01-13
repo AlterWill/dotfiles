@@ -45,9 +45,10 @@
 )
 
 (defalias
+  qta      (macro S-; q S-1 ret )          ;; :q! enter
   qt       (macro S-; q ret )          ;; :q enter
-  se       (macro S-; w ret )          ;; :w  enter
-  seQ      (macro S-; w q ret)         ;; :wq enter
+  se       (macro S-; w a ret )          ;; :wa  enter
+  seQ      (macro S-; w q a ret)         ;; :wqa enter
   yank     (macro S-; y + ret)         ;; :y+ enter
   yankF    (macro S-; S-5 y + ret)     ;; :%y+ enter
   afn      (macro = S-. )              ;; :%y+ enter
@@ -57,11 +58,11 @@
 )
 
 (deflayer navigation 
-  esc  f1   f2   f3   f4   f5   f6     f7     f8   f9   f10  f11  f12  prtsc Insert Delete
-  grv    1    2      3      4      5      6    7      8      9     0     -    =    bspc
-  tab    C-r  C-pgup C-pgdn C-bspc C-ret  @afn _      pgdn   pgup  C-c   [    ]    \
-  esc    @qt  home   end    tab    @aFn   left down   up     right @cfn  ret   '
-  _      @se  @seQ   @yank  @yankF C-spc  @bfn _      del    _     _     rsft
+  esc  f1   f2   f3   f4   f5   f6     f7     f8   f9   f10  f11    f12     prtsc Insert Delete
+  grv    1    2      3      4      5      6    7      8      9      0       -    =    bspc
+  tab    C-r  C-pgup C-pgdn C-bspc C-ret  @afn _      pgdn   pgup   C-c     [    ]    \
+  esc    @qt  home   end    tab    @aFn   left down   up     right  @cfn    ret   '
+  lsft   @se  @seQ   @yank  @yankF C-spc  @bfn @qta   del    C-left C-right rsft
   lctl lmet @laltfn @spcfn ret rmet rctl
 )
 

@@ -289,7 +289,8 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 2%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 2%+
     # Special key to take a screenshot with grim
-    bindsym Print exec hyprshot -m region
+    bindsym Print exec ~/.local/bin/sway-screenshot-region.sh
+    bindsym Shift+Print exec ~/.local/bin/sway-screenshot-window.sh
 		bindsym Menu+e exec ~/.local/bin/wofi-emoji.sh
 		bindsym Menu+p exec ~/.local/bin/wofi-clipboard.sh
 #

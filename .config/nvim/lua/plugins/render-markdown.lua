@@ -2,9 +2,18 @@ return {
   "MeanderingProgrammer/render-markdown.nvim",
   dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
   opts = {
-    -- Enable rendering only in Normal (n) and Command (c) modes.
-    -- Entering Insert mode (i) will disable rendering, showing the raw markdown.
     render_modes = { "n", "c" },
     file_types = { "markdown" },
+    latex = {
+      enabled = true,
+      -- We now have this installed on the system!
+      converter = "latex2text", 
+      highlight = "RenderMarkdownMath",
+      top_pad = 0,
+      bottom_pad = 0,
+    },
+    anti_conceal = {
+        enabled = true,
+    },
   },
 }
