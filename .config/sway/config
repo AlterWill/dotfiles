@@ -4,6 +4,8 @@
 #
 # Read `man 5 sway` for a complete reference.
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+# Start clipboard manager
+exec ~/.local/bin/start-clipboard.sh
 
 ### Variables
 #
@@ -15,7 +17,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term kitty
+set $term kitty --single-instance
 # Replace the border with a 1 pixel
 for_window [tiling] border pixel 1
 for_window [floating] border pixel 0
@@ -38,6 +40,8 @@ exec_always autotiling
 ### Output configuration
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg #ffffff solid_color
+# Enable adaptive sync for laptop screen
+output eDP-1 adaptive_sync on
 
 # window theme	
 client.unfocused #9751E1 #49306d #ffffff #5c5c5c
@@ -68,6 +72,7 @@ exec gammastep -l 9.9:76.3
 #
 exec_always swayidle -w \
     timeout 300 'swaylock -f -c 000000' \
+    timeout 330 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
     before-sleep 'swaylock -f -c 000000'
 
 #hibernate code, add this after timeout 300 line.
@@ -116,19 +121,11 @@ input type:keyboard {
 #
     # Start a terminal
     bindsym $mod+Return exec $term
-    
-    #Open browser
-    bindsym $mod+B exec brave
-    #Open chatgpt
-    bindsym $mod+alt+o exec brave https://chatgpt.com
-    #Open Gemini
-    bindsym $mod+alt+g exec brave https://gemini.google.com/app
-    #Open youtube
-    bindsym $mod+alt+y exec brave https://www.youtube.com
-    #Open Whatsapp Web
-    bindsym $mod+alt+w exec brave https://web.whatsapp.com
     # Kill focused window
     bindsym $mod+q kill
+    
+    # Turn off screen immediately
+    # bindsym $mod+Shift+BackSpace exec swaymsg "output * power off"
 
     # Start your launcher
     bindsym $mod+d exec $menu
@@ -206,6 +203,9 @@ input type:keyboard {
     bindsym $mod+alt+l workspace next
 
 
+    # rename the current window/tab
+    bindsym $mod+n exec ~/.local/bin/rename-window.sh
+
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 #
@@ -214,8 +214,8 @@ input type:keyboard {
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    #bindsym $mod+b splith
-    #bindsym $mod+v splitv
+    bindsym $mod+Shift+b splith
+    bindsym $mod+Shift+v splitv
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
@@ -291,8 +291,8 @@ bindsym $mod+r mode "resize"
     # Special key to take a screenshot with grim
     bindsym Print exec ~/.local/bin/sway-screenshot-region.sh
     bindsym Shift+Print exec ~/.local/bin/sway-screenshot-window.sh
-		bindsym Menu+e exec ~/.local/bin/wofi-emoji.sh
-		bindsym Menu+p exec ~/.local/bin/wofi-clipboard.sh
+    bindsym $mod+period exec ~/.local/bin/rofi-emoji.sh
+    bindsym $mod+v exec ~/.local/bin/rofi-clipboard.sh
 #
 # Status Bar:
 #

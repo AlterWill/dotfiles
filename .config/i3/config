@@ -100,10 +100,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-#bindsym $mod+h split h
+bindsym $mod+Shift+b split h
 
 # split in vertical orientation
-#bindsym $mod+v split v
+bindsym $mod+Shift+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -124,6 +124,9 @@ bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
+
+# rename the current window/tab
+bindsym $mod+n exec ~/.local/bin/rename-window.sh
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
