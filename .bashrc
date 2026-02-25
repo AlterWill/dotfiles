@@ -14,11 +14,12 @@ alias update='yay -Syu --noconfirm'
 alias Update='update && yay -Sc --noconfirm && exit'
 alias Install="yay -S --noconfirm"
 alias Delete="yay -Rns --noconfirm"
+alias yt="scrapetubefzf -d"
 alias vi='nvim'
 PS1='[\u@\h \W]\$ '
 alias eza='eza --icons=always -G'
-alias yt='scrapetubefzf -d'
 alias ls='eza'
+alias cat='bat'
 alias cleandisk='
  sudo paccache -rk2;
  echo "--- Pacman cache ---";
@@ -101,15 +102,8 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 # Clipboard function (Wayland)
 # Usage:
-#   echo "hello" | cb  # Copy
-#   cb                 # Paste
-cb() {
-  if [[ -p /dev/stdin ]]; then
-    wl-copy < /dev/stdin
-  else
-    wl-paste
-  fi
-}
+#   wl-copy < /dev/stdin
+#   wl-paste
 
 # Emoji picker using fzf
 # Downloads emoji list to ~/.cache/emojis.txt if missing.
@@ -119,8 +113,8 @@ emoji() {
   
   if [ ! -f "$cache_file" ]; then
     echo "Downloading emoji list..."
-    curl -sSL 'https://raw.githubusercontent.com/muan/emojilib/v2.4.0/emojis.json' | \
-    jq -r '. | to_entries | .[] | .value.char + " " + .key' > "$cache_file"
+    curl -sSL 'https://raw.githubusercontent.com/github/gemoji/master/db/emoji.json' | \
+    jq -r '.[] | .emoji + " " + .description + " (" + (.aliases | join(", ")) + ")"' > "$cache_file"
   fi
 
   local selected=$(cat "$cache_file" | fzf +m --prompt="Emoji> " --height=40% --layout=reverse)
