@@ -5,6 +5,8 @@ export PATH="$HOME/.local/bin:$PATH"
 export EDITOR=nvim
 export NODE_OPTIONS="--max-old-space-size=2048"
 
+export NO_UPDATE_NOTIFIER=1
+export BROWSER=brave
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -108,27 +110,16 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # Emoji picker using fzf
 # Downloads emoji list to ~/.cache/emojis.txt if missing.
 # Usage: emoji
+# Emoji/Character/Math/Box/Splat/Kaomoji picker using rofimoji (Wayland)
+# Files are in ~/.local/share/rofimoji/data/
 emoji() {
-  local cache_file="$HOME/.cache/emojis.txt"
-  
-  if [ ! -f "$cache_file" ]; then
-    echo "Downloading emoji list..."
-    curl -sSL 'https://raw.githubusercontent.com/github/gemoji/master/db/emoji.json' | \
-    jq -r '.[] | .emoji + " " + .description + " (" + (.aliases | join(", ")) + ")"' > "$cache_file"
-  fi
-
-  local selected=$(cat "$cache_file" | fzf +m --prompt="Emoji> " --height=40% --layout=reverse)
-  
-  if [ -n "$selected" ]; then
-    local icon=$(echo "$selected" | awk '{print $1}')
-    echo -n "$icon" | wl-copy
-    echo "Copied $icon to clipboard."
-  fi
+  rofimoji --action copy --files emojis splatmoji_all custom_unicode
 }
 
+# Alias rofimoji to itself (redundant but ensures user knows they can use both)
+alias rofimoji="rofimoji"
 # --- FZF Integration ---
 # Enable Ctrl+R (History) and Ctrl+T (Files)
 source /usr/share/fzf/key-bindings.bash
 source /usr/share/fzf/completion.bash
 
-export NO_UPDATE_NOTIFIER=1

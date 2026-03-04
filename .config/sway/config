@@ -291,7 +291,7 @@ bindsym $mod+r mode "resize"
     # Special key to take a screenshot with grim
     bindsym Print exec ~/.local/bin/sway-screenshot-region.sh
     bindsym Shift+Print exec ~/.local/bin/sway-screenshot-window.sh
-    bindsym $mod+period exec ~/.local/bin/rofi-emoji.sh
+    bindsym $mod+period exec rofimoji --action copy --files emojis splatmoji_all custom_unicode
     bindsym $mod+v exec ~/.local/bin/rofi-clipboard.sh
 #
 # Status Bar:

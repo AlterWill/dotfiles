@@ -39,7 +39,7 @@
   esc     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
   grv     1    2    3    4    5     6    7    8    9    0      -    =    bspc
   tab     q    w    e    r    t     y    u    i    o    p      [    ]    \
-  esc     @A_H @S_H @D_H @F_H g     h    @J_H @K_H @L_H @SCL_H ret   '
+  esc     @A_H @S_H @D_H @F_H g     h    @J_H @K_H @L_H @SCL_H '    ret
   lsft    z    x    c    v    b     n    m    ,    .    /      rsft
   lctl lmet @laltfn @spcfn ret rmet rctl 
 )
@@ -61,7 +61,7 @@
   esc  f1   f2   f3   f4   f5   f6     f7     f8   f9   f10  f11    f12     prtsc Insert Delete
   grv    1    2      3      4      5      6    7      8      9      0       -    =    bspc
   tab    C-r  C-pgup C-pgdn C-bspc C-'    @afn _      pgdn   pgup   C-c     [    ]    \
-  esc    @qt  home   end    tab    @aFn   left down   up     right  @cfn    ret   '
+  esc    @qt  home   end    tab    @aFn   left down   up     right  @cfn    '    ret
   lsft   @se  @seQ   @yank  @yankF C-spc  @bfn @qta   del    C-left C-right rsft
   lctl lmet @laltfn @spcfn ret rmet rctl
 )
@@ -70,7 +70,7 @@
   esc  f1   f2   f3   f4   f5   f6     f7     f8   f9   f10  f11  f12  prtsc Insert Delete
   grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab     [    S-,  S-.  ]    S-5  S-7  /    S-8  +    -    [    ]    \
-  esc     S-[  S-9  S-0  S-]  S-\  .    =    ;    S-;  S-'  ret   '
+  esc     S-[  S-9  S-0  S-]  S-\  .    =    ;    S-;  S-'  '    ret
   _       _    _    _    _    S-/  _    _    _    _    _    rsft
   lctl lmet @laltfn @spcfn @raltfn rmet rctl 
 )
@@ -78,7 +78,7 @@
 ;;  esc  f1   f2   f3   f4   f5   f6     f7     f8   f9   f10  f11  f12  prtsc Insert Delete
 ;;  grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
 ;;  tab     [    <    >    ]    %    &    /    *    +    -    [    ]    \
-;;  esc     {    (    )    }    |    .    =    ;    :    "    ret   '
+;;  esc     {    (    )    }    |    .    =    ;    :    "    '    ret
 ;;  _       _    _    _    @afn @cfn @bfn @aFn _    _    _    rsft
 ;;  lctl lmet @laltfn @spcfn @raltfn rmet rctl 
 
@@ -86,7 +86,7 @@
   esc     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
   grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab     S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  S-9  S-0  [    ]    \
-  esc     1    2    3    4    5    6    7    8    9    0    ret   '
+  esc     1    2    3    4    5    6    7    8    9    0    '    ret
   z       x    c    5    6    lsft S-6  S-7  ;    .    /    rsft
   lctl lmet @laltfn @spcfn @raltfn rmet rctl 
 )

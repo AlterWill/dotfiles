@@ -22,6 +22,10 @@ vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#000000" })
 vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = "#000000" })
 vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = "#000000" })
 vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { bg = "#000000" })
+-- vim.api.nvim_set_hl(0, "LineNr", { fg = "#fffffe" })
+vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#fffffe" })
+-- vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#a6adc8" })
+vim.api.nvim_set_hl(0, "LineNr", { fg = "#a6adc8" })
 vim.o.showcmd  = false
 
 vim.g.tmux_navigator_no_mappings = 1
