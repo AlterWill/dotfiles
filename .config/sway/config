@@ -27,7 +27,7 @@ for_window [class=".*"] opacity 1
 
 # Your preferred application launcher
 #set $menu wmenu-run
-set $menu rofi -show drun
+set $menu rofi -show drun 
 
 # executing kanata ( used for layers and home row mods )
 exec "pkill -f 'kanata'; kanata --cfg ~/.config/kanata/config.kbd"
@@ -42,6 +42,8 @@ exec_always autotiling
 output * bg #ffffff solid_color
 # Enable adaptive sync for laptop screen
 output eDP-1 adaptive_sync on
+# HDMI output
+output HDMI-A-1 resolution 1920x1080 position 0,0
 
 # window theme	
 client.unfocused #9751E1 #49306d #ffffff #5c5c5c

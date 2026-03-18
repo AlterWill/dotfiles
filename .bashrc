@@ -3,6 +3,7 @@
 #
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR=nvim
+export VISUAL=nvim
 export NODE_OPTIONS="--max-old-space-size=2048"
 
 export NO_UPDATE_NOTIFIER=1
@@ -47,6 +48,7 @@ npm cache clean --force 2>/dev/null || true;
 
  echo "--- Done ---";
 df -h /
+exit
 '
 
 export YAY_CLEAN_AFTER=1
@@ -123,3 +125,4 @@ alias rofimoji="rofimoji"
 source /usr/share/fzf/key-bindings.bash
 source /usr/share/fzf/completion.bash
 
+export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
