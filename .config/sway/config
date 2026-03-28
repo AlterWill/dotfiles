@@ -47,9 +47,12 @@ output HDMI-A-1 resolution 1920x1080 position 0,0
 
 # window theme	
 client.unfocused #9751E1 #49306d #ffffff #5c5c5c
-client.focused #9751E1 #bbaffa #222222 #9751E1
-client.focused_inactive #9751E1 #857a96 #2e2045  #5c5c5c
-client.urgent #9751E1 #e38193 #400a14 #5c5c5c
+# client.focused #9751E1 #000000 #ffffff #9751E1
+# client.focused_inactive #9751E1 #857a96 #2e2045  #5c5c5c
+# client.urgent #9751E1 #e38193 #400a14 #5c5c5c
+client.focused          #007777 #18181b #f1f1fa #7c3aed
+client.unfocused        #3f3f46 #18181b #f1f1fa #3f3f46
+client.focused_inactive #3f3f46 #27272a #d4d4d8 #3f3f46
 
 # Example configuration:
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
@@ -104,7 +107,7 @@ exec swaync
 # Example configuration:
 #
 input type:touchpad {
-  dwt enabled
+  dwt disabled
   tap enabled
   natural_scroll enabled
   middle_emulation enabled
@@ -131,6 +134,7 @@ input type:keyboard {
 
     # Start your launcher
     bindsym $mod+d exec $menu
+    bindsym $mod+w exec rofi -show window -matching fuzzy -i
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -221,9 +225,9 @@ input type:keyboard {
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
+    bindsym $mod+ctrl+h layout tabbed
     bindsym $mod+e layout toggle split
-
+    workspace_layout tabbed
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
 
