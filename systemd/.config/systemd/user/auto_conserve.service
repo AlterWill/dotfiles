@@ -3,7 +3,7 @@ Description=IdeaPad Auto Conservation Mode
 
 [Service]
 Type=simple
-ExecStart=/home/alterwill/auto_conserve.sh
+ExecStart=/home/alterwill/.local/bin/auto_conserve.sh
 Restart=always
 RestartSec=10
 
