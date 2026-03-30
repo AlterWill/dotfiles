@@ -12,6 +12,7 @@ export BROWSER=brave
 [[ $- != *i* ]] && return
 
 alias performance='sudo powertop --auto-tune ;sudo tlp start ;sudo auto-cpufreq --force reset ;exit'
+alias lf='yazi'
 alias powersave='sudo powertop --auto-tune ; sudo tlp bat ; sudo auto-cpufreq --force powersave ; exit'
 alias update='yay -Syu --noconfirm'
 alias Update='update && yay -Sc --noconfirm && exit'

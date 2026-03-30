@@ -2,10 +2,13 @@
   "position": "right",
   "modules-left": [
     //"sway/window"
-    "sway/workspaces"
+    "hyprland/window",
+    "sway/workspaces",
   ],
   "modules-center": [
     //"sway/workspaces",
+    //"cpu",
+    //"memory",
     "clock",
     "network"
   ],
@@ -39,11 +42,11 @@
     "format": "{:%d\n%m\n%y\n--\n%H\n%M}"
   },
   "cpu": {
-    "format": "  {usage}%",
+    "format": "{usage}\n\n",
     "tooltip": false
   },
   "memory": {
-    "format": "{}%  "
+    "format": "{}\n"
   },
   "temperature": {
     "critical-threshold": 80,
@@ -77,7 +80,8 @@
     "format": "{ifname}",
     "format-wifi": " ",
     //"format-ethernet": "   {bandwidthDownBytes}  {bandwidthUpBytes} ",
-    "format-disconnected": "X",
+    //"format-disconnected": "X",
+    "format-disconnected": "X",
     "tooltip-format": "  {ifname} via {gwaddri}",
     "tooltip-format-wifi": "   {essid} ({signalStrength}%)",
     "tooltip-format-ethernet": "  {ifname} ({ipaddr}/{cidr})",
