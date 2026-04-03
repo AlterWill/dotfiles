@@ -21,6 +21,8 @@ set $term kitty --single-instance
 # Replace the border with a 1 pixel
 for_window [tiling] border pixel 1
 for_window [floating] border pixel 0
+# for_window [app_id="Godot"] floating disable
+for_window [title=".*Godot.*"] floating disable
 for_window [class='.*'] border pixel 1
 # window specific opacity 
 for_window [class=".*"] opacity 1
@@ -46,11 +48,11 @@ output eDP-1 adaptive_sync on
 output HDMI-A-1 resolution 1920x1080 position 0,0
 
 # window theme	
-client.unfocused #9751E1 #49306d #ffffff #5c5c5c
-# client.focused #9751E1 #000000 #ffffff #9751E1
-# client.focused_inactive #9751E1 #857a96 #2e2045  #5c5c5c
-# client.urgent #9751E1 #e38193 #400a14 #5c5c5c
-client.focused          #007777 #18181b #ffffff #7c3aed
+#client.unfocused #9751E1 #49306d #ffffff #5c5c5c
+#client.focused #9751E1 #000000 #ffffff #9751E1
+#client.focused_inactive #9751E1 #857a96 #2e2045  #5c5c5c
+#client.urgent #9751E1 #e38193 #400a14 #5c5c5c
+client.focused          #f07777 #18181b #ffffff #7c3aed
 client.unfocused        #3f3f46 #18181b #ffffff #3f3f46
 client.focused_inactive #3f3f46 #27272a #d4d4d8 #3f3f46
 
