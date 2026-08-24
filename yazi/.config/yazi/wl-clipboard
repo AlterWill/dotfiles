@@ -1,0 +1,19 @@
+[mgr]
+ratio = [1,2,5]
+
+[preview]
+wrap = "yes"
+tab_size = 2
+
+[opener]
+edit = [
+  { run = "zed \"$@\"", block = false }
+]
+
+rules = [
+  { mime = "*", use = "edit" }
+]
+
+reveal = [
+  { run = "alacritty --working-directory \"$(dirname \"$1\")\"", block = false }
+]

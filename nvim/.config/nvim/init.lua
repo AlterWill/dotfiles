@@ -1,32 +1,8 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
+-- bootstrap lazy.nvim, LazyVim and your plugins
 
-require("vim-options")
-require("keymaps")
-require("lazy").setup("plugins")
+vim.api.nvim_set_hl(0, "LineNr", { fg = "#A9B1D6" })
+vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#A9B1D6" })
+vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#A9B1D6" })
+vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#00FFFF", bold = true })
 
--- Force black background
-vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { bg = "#000000" })
--- vim.api.nvim_set_hl(0, "LineNr", { fg = "#fffffe" })
-vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#fffffe" })
--- vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#a6adc8" })
-vim.api.nvim_set_hl(0, "LineNr", { fg = "#a6adc8" })
-vim.o.showcmd  = false
-
-vim.g.tmux_navigator_no_mappings = 1
-
+require("config.lazy")
