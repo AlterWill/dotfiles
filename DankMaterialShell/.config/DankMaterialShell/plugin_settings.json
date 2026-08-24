@@ -1,0 +1,31 @@
+{
+  "dmsLenovoBatterySettings": {
+    "enabled": false,
+    "refreshInterval": 40
+  },
+  "emojiLauncher": {
+    "enabled": true,
+    "recentEmojis": "󰇟,😐"
+  },
+  "dankQuickSearch": {
+    "enabled": true,
+    "defaultEngine": "google"
+  },
+  "dankCleaner": {
+    "enabled": true,
+    "dockerSystemPruneAll": false
+  },
+  "dankBatteryAlerts": {
+    "enabled": true,
+    "criticalThreshold": 20,
+    "warningThreshold": 35
+  },
+  "dankKDEConnect": {
+    "enabled": true,
+    "selectedDeviceId": "7d60e6b387934d258aa4e695f53f8748"
+  },
+  "calculator": {
+    "enabled": true,
+    "trigger": "="
+  }
+}
