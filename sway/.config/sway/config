@@ -32,7 +32,7 @@ for_window [class=".*"] opacity 1
 set $menu rofi -show drun 
 
 # executing kanata ( used for layers and home row mods )
-exec "pkill -f 'kanata'; kanata --cfg ~/.config/kanata/config.kbd"
+exec "pkill -f 'kanata'; /home/alterwill/.cargo/bin/kanata --cfg ~/.config/kanata/config.kbd"
 
 # window tiling behaviour
 # exec_always autotiling
@@ -41,7 +41,7 @@ exec "pkill -f 'kanata'; kanata --cfg ~/.config/kanata/config.kbd"
 
 ### Output configuration
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg #ffffff solid_color
+output * bg #000000 solid_color
 # Enable adaptive sync for laptop screen
 output eDP-1 adaptive_sync on
 # HDMI output

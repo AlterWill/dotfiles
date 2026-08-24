@@ -5,8 +5,10 @@
 
 //@theme "/usr/share/rofi/themes/arthur.rasi"
 
-@theme "/usr/share/rofi/themes/DarkBlue.rasi"
+//@theme "/usr/share/rofi/themes/DarkBlue.rasi"
 
 configuration {
     icon-theme: "Papirus";
 }
+
+@theme "/usr/share/rofi/themes/DarkBlue.rasi"
