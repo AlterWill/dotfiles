@@ -55,12 +55,13 @@
   cfn      (macro S-9 S-0 )            ;; :%y+ enter
   bfn      (macro S-[ S-] )            ;; :%y+ enter
   aFn      (macro - S-. )              ;; :%y+ enter
+  std      (macro s t d S-; S-; )      ;; std::
 )
 
 (deflayer navigation 
   esc  f1   f2   f3   f4   f5   f6     f7     f8   f9   f10  f11    f12     prtsc Insert Delete
   grv      1      2        3        4        5        6      7       8        9        0       -    =    bspc
-  tab      C-r    C-pgup   C-pgdn   C-bspc   C-'      @afn   _       C-left   C-right     C-c     [    ]    \
+  tab      C-r    C-pgup   C-pgdn   C-bspc   C-'      @afn   @std    C-left   C-right     C-c     [    ]    \
   esc      @qt    home     end      tab      @aFn     left   down    up       right    @cfn    '    ret
   lsft     @se    @seQ     @yank    @yankF   C-spc    @bfn   @qta    del      pgdn     pgup rsft
   lctl lmet @laltfn @spcfn ret rmet rctl
