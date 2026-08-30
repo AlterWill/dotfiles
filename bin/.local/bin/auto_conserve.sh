@@ -4,8 +4,22 @@
 
 TARGET=79
 SLEEP=60
-CONSERVATION_FILE="/sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode"
 TEE="/usr/bin/tee" # make sure this matches `which tee`
+
+get_conservation_file() {
+  local f
+  f=$(find /sys/bus/platform/drivers/ideapad_acpi /sys/devices/platform/ideapad_acpi /sys/devices/platform/*ideapad* -name "conservation_mode" 2>/dev/null | head -n 1)
+  if [[ -n "$f" && -f "$f" ]]; then
+    echo "$f"
+    return
+  fi
+  for b in /sys/class/power_supply/BAT*; do
+    if [[ -f "$b/charge_control_end_threshold" ]]; then
+      echo "$b/charge_control_end_threshold"
+      return
+    fi
+  done
+}
 
 get_capacity() {
   for b in /sys/class/power_supply/BAT*; do
@@ -27,7 +41,21 @@ ac_online() {
 
 write_conserve() {
   local v="$1"
-  echo "$v" | sudo "$TEE" "$CONSERVATION_FILE" >/dev/null
+  local target_file
+  target_file=$(get_conservation_file)
+  if [[ -z "$target_file" || ! -f "$target_file" ]]; then
+    echo "No supported Lenovo conservation_mode or charge_control_end_threshold found" >&2
+    return 1
+  fi
+  if [[ "$target_file" == *"charge_control_end_threshold"* ]]; then
+    if [[ "$v" -eq 1 ]]; then
+      echo "$TARGET" | sudo "$TEE" "$target_file" >/dev/null
+    else
+      echo "100" | sudo "$TEE" "$target_file" >/dev/null
+    fi
+  else
+    echo "$v" | sudo "$TEE" "$target_file" >/dev/null
+  fi
 }
 
 state="unknown"

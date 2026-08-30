@@ -1,7 +1,12 @@
 (defcfg
   process-unmapped-keys yes
   linux-dev-names-include (
+    "AT Raw Set 2 keyboard"
     "AT Translated Set 2 keyboard"
+    "Logitech Wireless Keyboard PID:4023"
+    "ITE Tech. Inc. ITE Device(8295) Keyboard"
+    "ITE Tech. Inc. ITE Device(8910) Keyboard"
+    "Keychron K2"
   )
 )
 

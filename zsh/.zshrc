@@ -15,6 +15,8 @@ setopt CORRECT
 alias update='sudo dnf update && exit'
 alias battery='sudo auto-cpufreq --force powersave;sudo powertop --auto-tune;sudo auto-cpufreq --turbo auto;exit'
 alias performance='sudo auto-cpufreq --force performance;sudo auto-cpufreq --turbo auto;exit'
+alias cleanup='sudo dnf autoremove && sudo dnf clean all && exit'
+alias cleanUpdate='sudo dnf update && cleanup'
 alias cd='z'
 alias cdi='zi'
 alias ci='nvim'
@@ -23,6 +25,7 @@ alias lgit='lazygit'
 alias cat='bat'
 alias npm='pnpm'
 alias vi='nvim'
+alias ls='eza --icons=always --color=always --group-directories-first'
 
 # custom Functions
 install(){
@@ -39,14 +42,17 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # syntax highlighting
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# StarShip ( terminal Sytle plugin )
- eval "$(starship init zsh)"
+# StarShip ( terminal Style plugin )
+if command -v starship &>/dev/null; then
+  eval "$(starship init zsh)"
+fi
 
-# Start or something Rust
-source ~/.cargo/env
+# Cargo / Rust environment
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
-# Envirment variables
-export PATH=$HOME/.local/bin:$PATH
+# Environment variables
+export EZA_COLORS="di=38;2;100;180;255:ex=38;2;130;220;130;1:ln=38;2;100;220;220:im=38;2;230;120;180:vi=38;2;200;140;240:mu=38;2;240;180;100:co=38;2;240;200;90:sc=38;2;120;190;255:do=38;2;220;220;220"
+export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="nvim"
 export VISUAL="zed --wait"
 export BUN_INSTALL="$HOME/.bun"
@@ -55,10 +61,7 @@ export TERMINAL=footclient
 # export __NV_PRIME_RENDER_OFFLOAD=1
 # export __GLX_VENDOR_LIBRARY_NAME=nvidia
 # export __VK_LAYER_NV_optimus=NVIDIA_only  
-JAVA_AWT_WM_NONREPARENTING=1
-
-# Added by Antigravity CLI installer
-export PATH="/home/alterwill/.local/bin:$PATH"
+export JAVA_AWT_WM_NONREPARENTING=1
 
 # pnpm
 export PNPM_HOME="/home/alterwill/.local/share/pnpm"
@@ -69,7 +72,9 @@ esac
 # pnpm end
 
 # zoxide ( better cd )
-eval "$(zoxide init zsh)"
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+fi
 
 # bun completions
 [ -s "/home/alterwill/.bun/_bun" ] && source "/home/alterwill/.bun/_bun"

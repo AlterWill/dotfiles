@@ -21,8 +21,8 @@ alias Delete="yay -Rns --noconfirm"
 alias yt="scrapetubefzf -d"
 alias vi='nvim'
 PS1='[\u@\h \W]\$ '
-alias eza='eza --icons=always -G'
-alias ls='eza'
+export EZA_COLORS="di=38;2;100;180;255:ex=38;2;130;220;130;1:ln=38;2;100;220;220:im=38;2;230;120;180:vi=38;2;200;140;240:mu=38;2;240;180;100:co=38;2;240;200;90:sc=38;2;120;190;255:do=38;2;220;220;220"
+alias ls='eza --icons=always --color=always --group-directories-first'
 alias cat='bat'
 alias cleandisk='
  sudo paccache -rk2;
@@ -58,7 +58,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
-eval "$(zoxide init --cmd cd bash)"
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init --cmd cd bash)"
+fi
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -80,11 +82,10 @@ esac
 FNM_PATH="/home/alterwill/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
 fi
-
-
-eval "$(fnm env --use-on-cd --shell bash)"
+if command -v fnm &>/dev/null; then
+  eval "$(fnm env --use-on-cd --shell bash)"
+fi
 
 
 cdf() {
@@ -123,7 +124,9 @@ emoji() {
 alias rofimoji="rofimoji"
 # --- FZF Integration ---
 # Enable Ctrl+R (History) and Ctrl+T (Files)
-source /usr/share/fzf/key-bindings.bash
-source /usr/share/fzf/completion.bash
+[ -f /usr/share/fzf/key-bindings.bash ] && source /usr/share/fzf/key-bindings.bash
+[ -f /usr/share/fzf/completion.bash ] && source /usr/share/fzf/completion.bash
+[ -f /usr/share/fzf/shell/key-bindings.bash ] && source /usr/share/fzf/shell/key-bindings.bash
+[ -f /usr/share/fzf/shell/completion.bash ] && source /usr/share/fzf/shell/completion.bash
 
 export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
