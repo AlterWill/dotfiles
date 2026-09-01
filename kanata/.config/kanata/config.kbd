@@ -1,5 +1,6 @@
 (defcfg
   process-unmapped-keys yes
+  concurrent-tap-hold yes    ;; Eliminates key delay during fast typing
   linux-dev-names-include (
     "AT Raw Set 2 keyboard"
     "AT Translated Set 2 keyboard"
@@ -16,85 +17,113 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   caps a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rmet rctl
+  lctl lmet lalt      spc        ralt rmet rctl
 )
 
-;; tap/hold timing (ms) — tweak if tap/hold feels off
-(defvar tt 255)
-(defvar ht 255)
+(defvar tt 170)
+(defvar ht 200)
 
-(defalias 
-    spcfn  (tap-hold $tt $ht spc  (layer-while-held navigation))
-    laltfn (tap-hold $tt $ht bspc (layer-while-held symbol))
-    raltfn (tap-hold $tt $ht ret  (layer-while-held number))
+(defalias
+  ;; Layer Toggles
+  spcfn  (tap-hold $tt $ht spc (layer-while-held navigation))
+  altcpp (tap-hold $tt $ht lalt (layer-while-held codingCPP))
+  tabmac (tap-hold $tt $ht tab (layer-while-held macroLayer))
 
-    ;; Home row keys
-    A_H (tap-hold $tt $ht a lalt)
-    S_H (tap-hold $tt $ht s lmet)  
-    D_H (tap-hold $tt $ht d lshift)
-    F_H (tap-hold $tt $ht f lctl)
+  ;; Dynamic Macro Recording Controls (3 Slots)
+  rec_m0 (dynamic-macro-record 0)
+  ply_m0 (dynamic-macro-play 0)
+  rec_m1 (dynamic-macro-record 1)
+  ply_m1 (dynamic-macro-play 1)
+  rec_m2 (dynamic-macro-record 2)
+  ply_m2 (dynamic-macro-play 2)
 
-    J_H (tap-hold $tt $ht j lctl)
-    K_H (tap-hold $tt $ht k lshift)  
-    L_H (tap-hold $tt $ht l lmet)  
-    SCL_H (tap-hold $tt $ht ; lalt)
+  ;; Mouse Movement Keys
+  mup  (movemouse-up 5 5)
+  mdn  (movemouse-down 5 5)
+  mlft (movemouse-left 5 5)
+  mrgt (movemouse-right 5 5)
+  mclk mlft
+  rclk mrgt
+
+  ;; Symbol Macros
+  box      (macro S-; S-;)                                     ;; ::
+  arrow    (macro - S-.)                                       ;; ->
+  darrow   (macro = S-.)                                       ;; =>
+  leftLeft (macro S-, S-,)                                     ;; <<
+  or       (macro S-\ S-\)                                     ;; ||
+  and      (macro S-7 S-7)                                     ;; &&
+
+  ;; Enclosures with auto-cursor repositioning
+  triclose (macro S-, S-. left)                                ;; <> (cursor inside)
+  brc      (macro S-[ S-] left)                                ;; {}
+  prn      (macro S-9 S-0 left)                                ;; ()
+  brk      (macro [ ] left)                                    ;; []
+
+  ;; C++ Types & Casting Macros
+  std      (macro s t d S-; S-;)                                        ;; std::
+  sizet    (macro s t d S-; S-; s i z e S-- t)                            ;; std::size_t
+  vec      (macro s t d S-; S-; v e c t o r S-, S-. left)               ;; std::vector<|>
+  str      (macro s t d S-; S-; s t r i n g)                            ;; std::string
+  scast    (macro s t a t i c S-- c a s t S-, S-. left S-9 S-0 left)      ;; static_cast<|>()
+
+  ;; Neovim Save & Quit Macros
+  vw       (macro S-; w ret)                                     ;; :w<Enter>
+  vq!      (macro S-; q S-1 ret)                                 ;; :q!<Enter>
+
+  ;; C++ Structure Macros
+  cppfor   (macro f o r S-9 S-; spc S-; spc S-0 spc S-[ ret S-] up end left left left left left)
+  cppif    (macro i f S-9 S-0 spc S-[ ret S-] up end left)
+  cppstr   (macro s t r u c t spc S-[ ret S-] ; up end left)
+
+  ;; Fixed Word Deletion for Terminals & GUI Word Jumps
+  cbspc (macro C-bspc)
+  cwlft    C-left
+  cwrgt    C-right
+
+  ;; Home Row Mods (tap-hold-release)
+  A_H   (tap-hold-release $tt $ht a lalt)
+  S_H   (tap-hold-release $tt $ht s lmet)
+  D_H   (tap-hold-release $tt $ht d lshift)
+  F_H   (tap-hold-release $tt $ht f lctl)
+
+  J_H   (tap-hold-release $tt $ht j lctl)
+  K_H   (tap-hold-release $tt $ht k lshift)
+  L_H   (tap-hold-release $tt $ht l lmet)
+  SCL_H (tap-hold-release $tt $ht ; lalt)
 )
 
 (deflayer base
   esc     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
-  grv     1    2    3    4    5     6    7    8    9    0      -    =    bspc
-  tab     q    w    e    r    t     y    u    i    o    p      [    ]    \
-  esc     @A_H @S_H @D_H @F_H g     h    @J_H @K_H @L_H @SCL_H '    ret
-  lsft    z    x    c    v    b     n    m    ,    .    /      rsft
-  lctl lmet @laltfn @spcfn ret rmet rctl 
-)
-
-(defalias
-  qta      (macro S-; q S-1 ret )          ;; :q! enter
-  qt       (macro S-; q ret )          ;; :q enter
-  se       (macro S-; w a ret )          ;; :wa  enter
-  seQ      (macro S-; w q a ret)         ;; :wqa enter
-  yank     (macro S-; y + ret)         ;; :y+ enter
-  yankF    (macro S-; S-5 y + ret)     ;; :%y+ enter
-  afn      (macro = S-. )              ;; => enter
-  cfn      (macro S-9 S-0 )            ;; () enter
-  bfn      (macro S-[ S-] )            ;; {} enter
-  aFn      (macro - S-. )              ;; -> enter
-  std      (macro s t d S-; S-; )      ;; std::
-  scll     (macro S-a ; esc )          ;; put ; at end of line in nvim
-)
-
-(deflayer navigation 
-  esc  f1   f2   f3   f4   f5   f6     f7     f8   f9   f10  f11    f12     prtsc Insert Delete
-  grv      1      2        3        4        5        6      7       8        9        0       -    =    bspc
-  tab      C-r    C-pgup   C-pgdn   C-bspc   C-'      @afn   @std    C-left   C-right     C-c     [    ]    \
-  esc      @qt    home     end      @scll    @aFn     left   down    up       right    @cfn    '    ret
-  lsft     @se    @seQ     @yank    @yankF   C-spc    @bfn   @qta    del      pgdn     pgup rsft
-  lctl lmet @laltfn @spcfn ret rmet rctl
-)
-
-(deflayer symbol
-  esc  f1   f2   f3   f4   f5   f6     f7     f8   f9   f10  f11  f12  prtsc Insert Delete
-  grv       1      2        3      4      5      6      7      8      9      0      -      =      bspc
-  tab       [      S-,      S-.    ]      S-5    S-7    /      S-8    +      -      [      ]      \
-  esc       S-[    S-9      S-0    S-]    S-\    .      =      ;      S-;    S-'    '      ret
-  _         _      _        _      _      S-/    _      _      _      _      _      rsft
-  lctl lmet @laltfn @spcfn @raltfn rmet rctl 
-)
-
-;;  esc  f1   f2   f3   f4   f5   f6     f7     f8   f9   f10  f11  f12  prtsc Insert Delete
-;;  grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
-;;  tab     [    <    >    ]    %    &    /    *    +    -    [    ]    \
-;;  esc     {    (    )    }    |    .    =    ;    :    "    '    ret
-;;  _       _    _    _    @afn @cfn @bfn @aFn _    _    _    rsft
-;;  lctl lmet @laltfn @spcfn @raltfn rmet rctl 
-
-(deflayer number
-  esc     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
   grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab     S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  S-9  S-0  [    ]    \
-  esc     1    2    3    4    5    6    7    8    9    0    '    ret
-  z       x    c    5    6    lsft S-6  S-7  ;    .    /    rsft
-  lctl lmet @laltfn @spcfn @raltfn rmet rctl 
+  @tabmac q    w    e    r    t    y    u    i    o    p    [    ]    \
+  esc     @A_H @S_H @D_H @F_H g    h    @J_H @K_H @L_H @SCL_H '    ret
+  lsft    z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl    lmet @altcpp   @spcfn      ralt rmet rctl
 )
 
+(deflayer navigation
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  @vq! @vw  _    @cbspc _  _    home pgup pgdn end  [    ]    \
+  esc  _    _    _    _    _    left down up   rght _    '    ret
+  lsft _    _    _    _    _    @cwlft @cwrgt ,  .    /    rsft
+  lctl lmet lalt      @spcfn      ralt rmet rctl
+)
+
+(deflayer codingCPP
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  _    @brc @prn @brk @triclose @or @and @arrow @darrow @leftLeft @box [ ] \
+  esc  @std @sizet @vec @str @cppfor @cppif @cppstr @scast _  _    '    ret
+  lsft _    _    _    _    _    _    _    ,    .    /    rsft
+  lctl lmet lalt      @spcfn      ralt rmet rctl
+)
+
+(deflayer macroLayer
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  _    @rec_m0 @rec_m1 @rec_m2 _ _ _   @mup _    _    _    [    ]    \
+  esc  @ply_m0 @ply_m1 @ply_m2 _ _ @mlft @mdn @mrgt _  '    ret
+  lsft _    _    _    _    _    _    @mclk @rclk ,  .    /    rsft
+  lctl lmet lalt      @spcfn      ralt rmet rctl
+)
