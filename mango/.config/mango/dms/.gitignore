@@ -2,3 +2,4 @@
 # Each machine has different display hardware, so this file
 # should NOT be tracked by git. Configure it locally after stowing.
 outputs.conf
+cursor.conf
