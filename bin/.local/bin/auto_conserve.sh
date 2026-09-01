@@ -8,11 +8,15 @@ TEE="/usr/bin/tee" # make sure this matches `which tee`
 
 get_conservation_file() {
   local f
-  f=$(find /sys/bus/platform/drivers/ideapad_acpi /sys/devices/platform/ideapad_acpi /sys/devices/platform/*ideapad* -name "conservation_mode" 2>/dev/null | head -n 1)
-  if [[ -n "$f" && -f "$f" ]]; then
-    echo "$f"
-    return
-  fi
+  for f in /sys/bus/platform/drivers/ideapad_acpi/*/conservation_mode \
+           /sys/devices/platform/ideapad_acpi/*/conservation_mode \
+           /sys/devices/platform/*ideapad*/conservation_mode \
+           /sys/bus/platform/drivers/ideapad_acpi/conservation_mode; do
+    if [[ -f "$f" ]]; then
+      echo "$f"
+      return
+    fi
+  done
   for b in /sys/class/power_supply/BAT*; do
     if [[ -f "$b/charge_control_end_threshold" ]]; then
       echo "$b/charge_control_end_threshold"
