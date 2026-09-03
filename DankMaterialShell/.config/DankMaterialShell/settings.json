@@ -93,7 +93,12 @@
     {
       "id": "plugin_dankKDEConnect",
       "enabled": true,
-      "width": 100
+      "width": 50
+    },
+    {
+      "id": "builtin_tailscale",
+      "enabled": true,
+      "width": 50
     }
   ],
   "showWorkspaceIndex": true,
@@ -269,7 +274,7 @@
       "widgetOutlineThickness": 1,
       "fontScale": 1.18,
       "iconScale": 0.6,
-      "autoHide": true,
+      "autoHide": false,
       "autoHideDelay": 105,
       "showOnWindowsOpen": false,
       "openOnOverview": false,
