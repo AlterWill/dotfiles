@@ -20,14 +20,14 @@
   lctl lmet lalt      spc        ralt rmet rctl
 )
 
-(defvar tt 170)
-(defvar ht 200)
+(defvar tt 200)
+(defvar ht 250)
 
 (defalias
   ;; Layer Toggles
   spcfn  (tap-hold $tt $ht spc (layer-while-held navigation))
   altcpp (tap-hold $tt $ht lalt (layer-while-held codingCPP))
-  tabmac (tap-hold $tt $ht tab (layer-while-held macroLayer))
+  altmac (tap-hold $tt $ht ralt (layer-while-held macroLayer))
 
   ;; Dynamic Macro Recording Controls (3 Slots)
   rec_m0 (dynamic-macro-record 0)
@@ -37,11 +37,11 @@
   rec_m2 (dynamic-macro-record 2)
   ply_m2 (dynamic-macro-play 2)
 
-  ;; Mouse Movement Keys
-  mup  (movemouse-up 5 5)
-  mdn  (movemouse-down 5 5)
-  mlft (movemouse-left 5 5)
-  mrgt (movemouse-right 5 5)
+  ;; Smooth Mouse Movement Keys (Smooth 1-pixel precision movement)
+  mup  (movemouse-accel-up 1 1000 1 5)
+  mdn  (movemouse-accel-down 1 1000 1 5)
+  mlft (movemouse-accel-left 1 1000 1 5)
+  mrgt (movemouse-accel-right 1 1000 1 5)
   mclk mlft
   rclk mrgt
 
@@ -53,6 +53,9 @@
   or       (macro S-\ S-\)                                     ;; ||
   and      (macro S-7 S-7)                                     ;; &&
 
+  ;; Adding ; at end of line in nvim
+  eof (macro esc S-a ; esc)
+
   ;; Enclosures with auto-cursor repositioning
   triclose (macro S-, S-. left)                                ;; <> (cursor inside)
   brc      (macro S-[ S-] left)                                ;; {}
@@ -60,23 +63,23 @@
   brk      (macro [ ] left)                                    ;; []
 
   ;; C++ Types & Casting Macros
-  std      (macro s t d S-; S-;)                                        ;; std::
-  sizet    (macro s t d S-; S-; s i z e S-- t)                            ;; std::size_t
+  std      (macro s t d S-; S-;)                                       ;; std::
+  sizet    (macro s t d S-; S-; s i z e S-- t)                         ;; std::size_t
   vec      (macro s t d S-; S-; v e c t o r S-, S-. left)               ;; std::vector<|>
   str      (macro s t d S-; S-; s t r i n g)                            ;; std::string
-  scast    (macro s t a t i c S-- c a s t S-, S-. left S-9 S-0 left)      ;; static_cast<|>()
+  scast    (macro s t a t i c S-- c a s t S-, S-.  S-9 S-0 left left left)      ;; static_cast<|>()
 
   ;; Neovim Save & Quit Macros
   vw       (macro S-; w ret)                                     ;; :w<Enter>
   vq!      (macro S-; q S-1 ret)                                 ;; :q!<Enter>
 
   ;; C++ Structure Macros
-  cppfor   (macro f o r S-9 S-; spc S-; spc S-0 spc S-[ ret S-] up end left left left left left)
-  cppif    (macro i f S-9 S-0 spc S-[ ret S-] up end left)
-  cppstr   (macro s t r u c t spc S-[ ret S-] ; up end left)
+  cppfor   (macro f o r S-9 S-0 S-[ S-] left ret up end left left)
+  cppif    (macro i f S-9 S-0 S-[ S-] left ret up end left left)
+  cppstr   (macro s t r u c t S-[ S-] ; left left ret )
 
   ;; Fixed Word Deletion for Terminals & GUI Word Jumps
-  cbspc (macro C-bspc)
+  cbspc    C-bspc
   cwlft    C-left
   cwrgt    C-right
 
@@ -93,12 +96,12 @@
 )
 
 (deflayer base
-  esc     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
-  grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  @tabmac q    w    e    r    t    y    u    i    o    p    [    ]    \
-  esc     @A_H @S_H @D_H @F_H g    h    @J_H @K_H @L_H @SCL_H '    ret
-  lsft    z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl    lmet @altcpp   @spcfn      ralt rmet rctl
+  esc      f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
+  grv      1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab      q    w    e    r    t    y    u    i    o    p    [    ]    \
+  esc      @A_H @S_H @D_H @F_H g    h    @J_H @K_H @L_H @SCL_H '    ret
+  lsft     z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl     lmet @altcpp   @spcfn      @altmac rmet rctl
 )
 
 (deflayer navigation
@@ -114,7 +117,7 @@
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   _    @brc @prn @brk @triclose @or @and @arrow @darrow @leftLeft @box [ ] \
-  esc  @std @sizet @vec @str @cppfor @cppif @cppstr @scast _  _    '    ret
+  esc  @std @sizet @vec @str @cppfor @cppif @cppstr @scast @eof _    '    ret
   lsft _    _    _    _    _    _    _    ,    .    /    rsft
   lctl lmet lalt      @spcfn      ralt rmet rctl
 )
@@ -122,8 +125,8 @@
 (deflayer macroLayer
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  _    @rec_m0 @rec_m1 @rec_m2 _ _ _   @mup _    _    _    [    ]    \
-  esc  @ply_m0 @ply_m1 @ply_m2 _ _ @mlft @mdn @mrgt _  '    ret
-  lsft _    _    _    _    _    _    @mclk @rclk ,  .    /    rsft
+  _    _    _  _    _    _    _    _    @rec_m0 @rec_m1 @rec_m2 [  ]    \
+  esc  @mlft @mdn @mup @mrgt _    _    _    @ply_m0 @ply_m1 @ply_m2 '    ret
+  lsft _    _    _    _    _    @mclk @rclk ,  .    /    rsft
   lctl lmet lalt      @spcfn      ralt rmet rctl
 )
