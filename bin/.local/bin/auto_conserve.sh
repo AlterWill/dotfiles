@@ -2,7 +2,7 @@
 # /home/alterwill/auto_conserve.sh
 # Toggle IdeaPad conservation_mode: enable at >=TARGET, disable below TARGET
 
-TARGET=79
+TARGET=80
 SLEEP=60
 TEE="/usr/bin/tee" # make sure this matches `which tee`
 
