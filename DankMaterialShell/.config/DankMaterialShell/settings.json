@@ -160,7 +160,6 @@
   "matugenTemplateNeovim": true,
   "dockOpenOnOverview": true,
   "dockSpacing": 8,
-  "lockScreenNotificationMode": 3,
   "notificationHistoryMaxCount": 60,
   "osdPosition": 1,
   "osdPowerProfileEnabled": true,
@@ -357,9 +356,15 @@
     },
     "dms_clipboard_search": {
       "trigger": "cb"
+    },
+    "dms_power": {
+      "trigger": "pw"
+    },
+    "dms_qr_generator": {
+      "trigger": "qrg"
     }
   },
   "frameThickness": 2,
   "frameRounding": 0,
-  "configVersion": 17
+  "configVersion": 18
 }
