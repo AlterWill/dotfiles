@@ -12,11 +12,12 @@ setopt AUTO_CD
 setopt CORRECT
 
 # ---- Aliases ----
-alias update='sudo dnf update && exit'
-alias battery='sudo auto-cpufreq --force powersave;sudo powertop --auto-tune;sudo auto-cpufreq --turbo auto;exit'
-alias performance='sudo auto-cpufreq --force performance;sudo auto-cpufreq --turbo auto;exit'
+alias update='sudo dnf update '
+alias battery='sudo auto-cpufreq --force powersave;sudo powertop --auto-tune;sudo auto-cpufreq --turbo auto;'
+alias performance='sudo auto-cpufreq --force performance;sudo auto-cpufreq --turbo auto;'
+alias pcu='performance ; dms system update --noconfirm  ; cleanup'
 alias cleanup='sudo dnf autoremove && sudo dnf clean all && exit'
-alias cleanUpdate='sudo dnf update && cleanup'
+alias cleanUpdate='update && cleanup'
 alias cd='z'
 alias cdi='zi'
 alias ci='nvim'
@@ -58,9 +59,9 @@ export VISUAL="nvim"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"   
 export TERMINAL=footclient
-# export __NV_PRIME_RENDER_OFFLOAD=1
-# export __GLX_VENDOR_LIBRARY_NAME=nvidia
-# export __VK_LAYER_NV_optimus=NVIDIA_only  
+export __NV_PRIME_RENDER_OFFLOAD=1
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+export __VK_LAYER_NV_optimus=NVIDIA_only  
 export JAVA_AWT_WM_NONREPARENTING=1
 
 # pnpm

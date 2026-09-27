@@ -8,16 +8,15 @@ return {
           cmd = {
             "clangd",
             "--background-index",
-            "--clang-tidy", -- Disabled to save ~50% memory. Uncomment if needed.
-            "--header-insertion=never", -- Avoid indexing overhead for insertions
-            "--completion-style=bundled", -- "bundled" uses less memory than "detailed"
-            "--function-arg-placeholders",
+            "--header-insertion=never",
+            "--completion-style=bundled",
             "--fallback-style=llvm",
-            "-j=1", -- Limit background indexing to 1 thread to save RAM and CPU
-            "--pch-storage=disk", -- Save memory by writing PCHs to disk
-            "--background-index-priority=low", -- Lower background indexing CPU priority
-            "--malloc-trim", -- Releases memory back to the OS aggressively (Linux-only, very effective)
-            "--limit-results=50", -- Reduce memory by limiting autocomplete items returned
+            "-j=4",
+            "--pch-storage=disk",
+            "--background-index-priority=low",
+            "--malloc-trim",
+            "--limit-results=100",
+            "--log=error",
           },
         },
         -- For TypeScript/JavaScript (vtsls is the default in newer LazyVim, tsserver in older)
