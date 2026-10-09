@@ -17,6 +17,7 @@ return {
             "--malloc-trim",
             "--limit-results=100",
             "--log=error",
+            "--compile-commands=/home/alterwill/blender/compile_commands.json",
           },
         },
         -- For TypeScript/JavaScript (vtsls is the default in newer LazyVim, tsserver in older)
