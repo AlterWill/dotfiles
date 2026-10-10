@@ -7,37 +7,30 @@ return {
         clangd = {
           cmd = {
             "clangd",
-            "--background-index",
-            "--header-insertion=never",
-            "--completion-style=bundled",
-            "--fallback-style=llvm",
-            "-j=4",
-            "--pch-storage=disk",
-            "--background-index-priority=low",
-            "--malloc-trim",
-            "--limit-results=100",
-            "--log=error",
-            "--compile-commands=/home/alterwill/blender/compile_commands.json",
+            "--background-index", -- Automatically indexes all project files in the background
+            "--pch-storage=disk", -- Reduces RAM usage by storing precompiled headers on disk
+            "--malloc-trim", -- Aggressively releases memory back to OS (Linux-only)
+            "--header-insertion=never", -- Prevents unwanted/slow automatic include insertions
+            "--completion-style=bundled", -- Fast, lightweight completion items
+            "--function-arg-placeholders", -- Adds parameter placeholders on function autocompletion
+            "--fallback-style=llvm", -- Default formatting style fallback
+            "--limit-results=50", -- Caps completion results to avoid LSP stutter
           },
         },
-        -- For TypeScript/JavaScript (vtsls is the default in newer LazyVim, tsserver in older)
+        -- TypeScript / JavaScript LSP settings
         vtsls = {
           settings = {
             typescript = {
-              tsserver = {
-                maxTsServerMemory = 1024, -- Limit TS server memory to 1GB (default is 3GB)
-              },
+              tsserver = { maxTsServerMemory = 1024 },
             },
             javascript = {
-              tsserver = {
-                maxTsServerMemory = 1024,
-              },
+              tsserver = { maxTsServerMemory = 1024 },
             },
           },
         },
         tsserver = {
           settings = {
-            maxTsServerMemory = 1024, -- For older configurations using tsserver directly
+            maxTsServerMemory = 1024,
           },
         },
       },
