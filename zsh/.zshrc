@@ -12,12 +12,15 @@ setopt AUTO_CD
 setopt CORRECT
 
 # ---- Aliases ----
-alias update='sudo dnf update '
-alias battery='sudo auto-cpufreq --force powersave;sudo powertop --auto-tune;sudo auto-cpufreq --turbo auto;'
-alias performance='sudo auto-cpufreq --force performance;sudo auto-cpufreq --turbo auto;'
+alias dFirefox='sudo dnf remove firefox'
+alias update='sudo dnf update && dFirefox'
+alias Update='sudo dnf update && dFirefox'
+alias battery='sudo auto-cpufreq --force powersave;sudo powertop --auto-tune;sudo auto-cpufreq --turbo auto;dFirefox;exit'
+alias performance='sudo auto-cpufreq --force performance;sudo auto-cpufreq --turbo auto;dFirefox'
 alias pcu='performance ; dms system update --noconfirm  ; cleanup'
+alias Pcu='performance ; dms system update --noconfirm  ; cleanup'
 alias cleanup='sudo dnf autoremove && sudo dnf clean all && exit'
-alias cleanUpdate='update && cleanup'
+alias CleanUpdate='update && cleanup'
 alias cd='z'
 alias cdi='zi'
 alias ci='nvim'
@@ -30,11 +33,11 @@ alias ls='eza --icons=always --color=always --group-directories-first'
 
 # custom Functions
 install(){
-  sudo dnf install "$@" && exit
+  sudo dnf install "$@" && dFirefox && exit
 }
 
 delete(){
-  sudo dnf remove "$@" && exit
+  sudo dnf remove "$@" && dFirefox && exit
 }
 
 # autosuggestions
