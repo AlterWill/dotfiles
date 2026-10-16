@@ -12,15 +12,12 @@ setopt AUTO_CD
 setopt CORRECT
 
 # ---- Aliases ----
-alias dFirefox='sudo dnf remove firefox'
-alias update='sudo dnf update && dFirefox'
-alias Update='sudo dnf update && dFirefox'
-alias battery='sudo auto-cpufreq --force powersave;sudo powertop --auto-tune;sudo auto-cpufreq --turbo auto;dFirefox;exit'
-alias performance='sudo auto-cpufreq --force performance;sudo auto-cpufreq --turbo auto;dFirefox'
+alias update='sudo dnf update '
+alias battery='sudo auto-cpufreq --force powersave;sudo powertop --auto-tune;sudo auto-cpufreq --turbo never;exit'
+alias performance='sudo auto-cpufreq --force performance;sudo auto-cpufreq --turbo auto;'
 alias pcu='performance ; dms system update --noconfirm  ; cleanup'
-alias Pcu='performance ; dms system update --noconfirm  ; cleanup'
 alias cleanup='sudo dnf autoremove && sudo dnf clean all && exit'
-alias CleanUpdate='update && cleanup'
+alias cleanUpdate='update && cleanup && exit'
 alias cd='z'
 alias cdi='zi'
 alias ci='nvim'
@@ -33,11 +30,11 @@ alias ls='eza --icons=always --color=always --group-directories-first'
 
 # custom Functions
 install(){
-  sudo dnf install "$@" && dFirefox && exit
+  sudo dnf install "$@" && exit
 }
 
 delete(){
-  sudo dnf remove "$@" && dFirefox && exit
+  sudo dnf remove "$@" && exit
 }
 
 # autosuggestions
@@ -62,9 +59,8 @@ export VISUAL="nvim"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"   
 export TERMINAL=footclient
-export __NV_PRIME_RENDER_OFFLOAD=1
-export __GLX_VENDOR_LIBRARY_NAME=nvidia
-export __VK_LAYER_NV_optimus=NVIDIA_only  
+# NVIDIA GPU offload alias (use when in hybrid mode)
+alias prime-run='__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia __VK_LAYER_NV_optimus=NVIDIA_only'
 export JAVA_AWT_WM_NONREPARENTING=1
 
 # pnpm
