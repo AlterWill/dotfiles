@@ -64,6 +64,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"   
 export TERMINAL=footclient
 export JAVA_AWT_WM_NONREPARENTING=1
+export QT_QPA_PLATFORMTHEME=qt6ct
 
 # pnpm
 export PNPM_HOME="/home/alterwill/.local/share/pnpm"
