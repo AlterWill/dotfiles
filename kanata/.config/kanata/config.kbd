@@ -27,7 +27,7 @@
   ;; Layer Toggles
   spcfn   (tap-hold $tt $ht spc (layer-while-held navigation))
   altcpp  (tap-hold $tt $ht lalt (layer-while-held codingCPP))
-  altmac  (tap-hold $tt $ht ralt (layer-while-held mouseLayer))
+  altmac  (tap-hold $tt $ht ret (layer-while-held mouseLayer))
   bspcmac (tap-hold $tt $ht bspc (layer-while-held dynmacro))
 
   ;; Dynamic Macro Recording Controls (3 Slots)
@@ -38,11 +38,11 @@
   rec_m2 (dynamic-macro-record 2)
   ply_m2 (dynamic-macro-play 2)
 
-  ;; Smooth Mouse Movement Keys (Smooth 1-pixel precision movement)
-  mup  (movemouse-accel-up 1 1000 1 5)
-  mdn  (movemouse-accel-down 1 1000 1 5)
-  mlft (movemouse-accel-left 1 1000 1 5)
-  mrgt (movemouse-accel-right 1 1000 1 5)
+  ;; Smooth Mouse Movement Keys (Balanced speed and responsive acceleration)
+  mup  (movemouse-accel-up 3 800 1 7)
+  mdn  (movemouse-accel-down 3 800 1 7)
+  mlft (movemouse-accel-left 3 800 1 7)
+  mrgt (movemouse-accel-right 3 800 1 7)
   btnl mlft
   btnm mmid
   btnr mrgt
