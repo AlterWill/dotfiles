@@ -25,9 +25,10 @@
 
 (defalias
   ;; Layer Toggles
-  spcfn  (tap-hold $tt $ht spc (layer-while-held navigation))
-  altcpp (tap-hold $tt $ht lalt (layer-while-held codingCPP))
-  altmac (tap-hold $tt $ht ralt (layer-while-held macroLayer))
+  spcfn   (tap-hold $tt $ht spc (layer-while-held navigation))
+  altcpp  (tap-hold $tt $ht lalt (layer-while-held codingCPP))
+  altmac  (tap-hold $tt $ht ralt (layer-while-held mouseLayer))
+  bspcmac (tap-hold $tt $ht bspc (layer-while-held dynmacro))
 
   ;; Dynamic Macro Recording Controls (3 Slots)
   rec_m0 (dynamic-macro-record 0)
@@ -42,8 +43,9 @@
   mdn  (movemouse-accel-down 1 1000 1 5)
   mlft (movemouse-accel-left 1 1000 1 5)
   mrgt (movemouse-accel-right 1 1000 1 5)
-  mclk mlft
-  rclk mrgt
+  btnl mlft
+  btnm mmid
+  btnr mrgt
 
   ;; Symbol Macros
   box      (macro S-; S-;)                                     ;; ::
@@ -98,7 +100,7 @@
 
 (deflayer base
   esc      f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
-  grv      1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  grv      1    2    3    4    5    6    7    8    9    0    -    =    @bspcmac
   tab      q    w    e    r    t    y    u    i    o    p    [    ]    \
   esc      @A_H @S_H @D_H @F_H g    h    @J_H @K_H @L_H @SCL_H '    ret
   lsft     z    x    c    v    b    n    m    ,    .    /    rsft
@@ -123,11 +125,20 @@
   lctl lmet lalt      @spcfn      ralt rmet rctl
 )
 
-(deflayer macroLayer
+(deflayer mouseLayer
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    @bspcmac
+  tab  _    @mup  _    _    _    _    _    _    _    _    [    ]    \
+  esc  @mlft @mdn @mrgt _    _    _    @btnl _    @btnr _    '    ret
+  lsft _    _    _    _    _    _    @btnm ,    .    /    rsft
+  lctl lmet lalt      @spcfn      ralt rmet rctl
+)
+
+(deflayer dynmacro
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  prtsc Insert Delete
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  _    _    _  _    _    _    _    _    @rec_m0 @rec_m1 @rec_m2 [  ]    \
-  esc  @mlft @mdn @mup @mrgt _    _    _    @ply_m0 @ply_m1 @ply_m2 '    ret
-  lsft _    _    _    _    _    @mclk @rclk ,  .    /    rsft
+  tab  @rec_m0 @rec_m1 @rec_m2 _ _ _   _    _    _    _    [    ]    \
+  esc  @ply_m0 @ply_m1 @ply_m2 _ _ _   _    _    _    _    '    ret
+  lsft _    _    _    _    _    _    _    ,    .    /    rsft
   lctl lmet lalt      @spcfn      ralt rmet rctl
 )
