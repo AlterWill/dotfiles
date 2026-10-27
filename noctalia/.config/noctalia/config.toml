@@ -200,7 +200,7 @@ rebooting = []
 session_locked = []
 session_unlocked = []
 shutting_down = []
-started = [ "foot --server;sudo powertop --auto-tune" ]
+started = [ "sudo powertop --auto-tune" ]
 theme_mode_changed = []
 wallpaper_changed = []
 wifi_disabled = []
@@ -276,7 +276,7 @@ sunset = ""
 
 [lockscreen]
 allow_empty_password = false
-blur_intensity = 0.5
+blur_intensity = 0
 blurred_desktop = false
 edge_smoothness = 0.30000001192092896
 enabled = true
@@ -356,7 +356,7 @@ widget_order = [ "lockscreen-login-box@eDP-2", "lockscreen-login-box@eDP-1" ]
         show_weather = true
 
 [nightlight]
-enabled = false
+enabled = true
 force = false
 temperature_day = 6500
 temperature_night = 4000
@@ -383,7 +383,7 @@ show_app_name = true
 width = 360
 
 [osd]
-background_opacity = 0.97000002861022949
+background_opacity = 1
 border = true
 border_color = "outline"
 border_width = 1.0
