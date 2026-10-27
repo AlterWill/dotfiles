@@ -26,6 +26,8 @@ alias cd='z'
 alias cdi='zi'
 alias ci='nvim'
 alias fzf='fzf -e'
+alias fcd='cd $(pwd) && cd $(fd --type directory | fzf)'
+alias ncd='cd $(pwd) && nvim $(fd --type file | fzf)'
 alias lgit='lazygit'
 alias cat='bat'
 alias npm='pnpm'
@@ -62,7 +64,7 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"   
-export TERMINAL=footclient
+export TERMINAL=foot
 export JAVA_AWT_WM_NONREPARENTING=1
 export QT_QPA_PLATFORMTHEME=qt6ct
 
