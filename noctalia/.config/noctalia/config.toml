@@ -89,7 +89,9 @@ sync_all_monitors = false   # if set to true, makes every display have the same 
 
 [brightness.monitor.eDP-1]
 backend = "backlight"   # auto | none | backlight | ddcutil
-backlight_device = "amdgpu_bl1" # explicit sysfs device name or path
+backlight_device = "intel_backlight" # explicit sysfs device name or path
+# amdgpu_bl1
+# intel_backlight
 
 [brightness.monitor.DP-1]
 backend = "ddcutil"
