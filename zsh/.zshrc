@@ -58,6 +58,11 @@ delete(){
   sudo dnf remove "$@" && dFirefox && exit
 }
 
+# enable OSC 7 for opening the terminal in same directory
+chpwd() {
+  print -Pn "\e]7;file://%m$PWD\e\\"
+}
+
 # Cargo / Rust environment
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
