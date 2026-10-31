@@ -43,7 +43,7 @@ alias cd='z'
 alias cdi='z -i'
 alias fzf='fzf -e'
 alias fcd='cd $(pwd) && cd $(fd --type directory | fzf)'
-alias ncd='cd $(pwd) && nvim $(fd --type file | fzf)'
+alias ncd='pos=$(pwd) && nvim $(fd --type file | fzf) && cd $pos'
 alias lgit='lazygit'
 alias cat='bat'
 alias vi='nvim'
@@ -56,6 +56,11 @@ install(){
 
 delete(){
   sudo dnf remove "$@" && dFirefox && exit
+}
+
+# enable OSC 7 for opening the terminal in same directory
+chpwd() {
+  print -Pn "\e]7;file://%m$PWD\e\\"
 }
 
 # Cargo / Rust environment
