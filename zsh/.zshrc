@@ -40,7 +40,7 @@ alias Pcu='pcu && exit'
 alias cleanup='sudo dnf autoremove && sudo dnf clean all'
 alias CleanUpdate='update && cleanup && exit'
 alias cd='z'
-alias cdi='z -i'
+alias cdi='zoxide query -i'
 alias fzf='fzf -e'
 alias fcd='cd $(pwd) && cd $(fd --type directory | fzf)'
 alias ncd='pos=$(pwd) && nvim $(fd --type file | fzf) && cd $pos'
@@ -90,6 +90,7 @@ if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
         print -P "%F{160} The clone has failed.%f%b"
 fi
 
+# Load Zinit
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
@@ -107,16 +108,18 @@ zinit light-mode for \
 # Add in powerlevel10k
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
-# syntax highlighting
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
-zinit light Aloxaf/fzf-tab
+# Load heavy plugins and completions asynchronously using Turbo mode (wait'!f')
+zinit wait'!' lucid light-mode for \
+    zsh-users/zsh-syntax-highlighting \
+    zsh-users/zsh-completions \
+    zsh-users/zsh-autosuggestions \
+    Aloxaf/fzf-tab
 
 # Load completions
 autoload -U compinit && compinit
 
-zinit cdreplay -q
+# Safe cdreplay (only runs if zinit loaded things successfully)
+typeset -f zinit >/dev/null && zinit cdreplay -q
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
